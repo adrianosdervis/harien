@@ -1,0 +1,52 @@
+{% extends "shop/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load account %}
+
+{% block metadescription %}
+Welcome to Harien eshop
+{% endblock metadescription %}
+
+{% block metakeywords %}
+{% endblock metakeywords %}
+
+{% block head_title %}
+Harien Shop | Confirm E-mail Address
+{% endblock head_title %}
+
+
+{% block content %}
+<div class="site-section" style="padding-bottom: 150px;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <h2 class="h3 mb-3 text-black">Confirm E-mail Address</h2>
+            </div>
+            <div class="col-md-7">
+                {% if confirmation %}
+
+                {% user_display confirmation.email_address.user as user_display %}
+
+                <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a
+                       href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user
+                    {{ user_display }}.{% endblocktrans %}</p>
+
+                <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                    {% csrf_token %}
+                    <button class="btn btn-harien btn-lg btn-block" type="submit">{% trans 'Confirm' %}</button>
+                </form>
+
+                {% else %}
+
+                {% url 'account_email' as email_url %}
+
+                <p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a
+                       href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

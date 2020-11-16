@@ -1,0 +1,86 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block metadescription %}
+{% if category %}
+{{ category.description|truncatewords:150 }}
+{% else %}
+Welcome to Harien eshop
+{% endif %}
+{% endblock metadescription %}
+
+{% block metakeywords %}
+{% endblock metakeywords %}
+
+{% block head_title %}
+{% if category %}
+Harien Shop | {{ category.name }}
+{% else %}
+Harien Shop | Home
+{% endif %}
+{% endblock head_title %}
+
+
+{% block content %}
+
+<main class="pb-5">
+
+  <!-- Categories menu -->
+  <div class="category-menu">
+    <a href="{% url 'home' %}">All</a>
+    {% for category in links %}
+    <a href="?category={{ category.slug }}">{{ category.name }}</a>
+    {% endfor %}
+  </div>
+
+  <!-- Category image -->
+  {% if category %}
+  <div class="category-image" style="background-image: url({{ category.image.url }});"></div>
+  <div class="category-description mt-5 px-4">
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.description }}</p>
+  </div>
+  {% else %}
+  <div class="all-categories" style="background-image: url({% static 'images/all.jpg' %});"></div>
+  <div class="category-description mt-5 px-4">
+    <h1>All Products</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam laboriosam beatae itaque vero. Recusandae aut et
+      nobis ipsa ab praesentium quas exercitationem facere. Voluptatibus, earum officiis? Omnis ut dignissimos earum.
+    </p>
+  </div>
+  {% endif %}
+
+  <div class="container mt-5" style="padding-bottom: 5rem;">
+    <div class="row">
+      {% for product in products_list %}
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="product-item p-3 mb-5">
+          <a href="{{ product.get_url }}">
+            <img class="img-fluid mb-3 rounded" src="{{ product.main_image.url }}" alt="{{ product.name }}">
+          </a>
+          <div class="mt-3">
+            <h4 class="mt-3">{{ product.name }}</h4>
+            <h6 class="mt-3">{{ product.description|truncatechars:100 }}</h6>
+            <h2 style="letter-spacing: 2px;" class="mt-3 mb-0"><span
+                    class="badge badge-primary p-2">{{ product.price }}€</span></h2>
+            <a class="product-item-link mt-3 d-block" href="{{ product.get_url }}">View product...</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 p-3 text-center">
+        {% if category %}
+        <h3 class="h4">No products in {{category.name}}</h3>
+        {% else %}
+        <h3 class="h4">Soon with more products</h3>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    {% include 'shop/pagination.html' %}
+
+  </div>
+</main>
+
+{% endblock content %}

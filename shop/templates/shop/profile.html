@@ -1,0 +1,65 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block metadescription %}
+Welcome to Harien eshop
+{% endblock metadescription %}
+
+{% block metakeywords %}
+{% endblock metakeywords %}
+
+{% block head_title %}
+Harien Shop | Profile ({{request.user.username}})
+{% endblock head_title %}
+
+{% block content %}
+<div class="site-section" style="padding-bottom: 200px;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <h2 class="text-black">Your profile ({{request.user.username}})</h2>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{request.user.email}}
+              <a href="{% url 'account_logout' %}">
+                <small class="float-right btn btn-harien btn-sm">Logout</small></a>
+            </h5>
+            <hr>
+            <h5 class="card-title">Your orders</h5>
+            <div class="site-blocks-table">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th>Reference No.</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                  <tr>
+                    <td><a class="btn btn-harien btn-sm"
+                         href="{% url 'order-detail' order.pk %}">#{{ order.reference_number }}</a></td>
+                    <td>{{ order.ordered_date|date:'N j, Y' }}</td>
+                    <td>{{ order.get_total }}€</td>
+                    <td>{% if order.payment_method == 'Door' %}Pay on
+                      delivery{% elif order.payment_method == 'Card' %}Paid
+                      (Card){% elif order.payment_method == 'Bank' %}Paid (Bank){% else %}Not paid{% endif %}</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="4">You haven't made any orders</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

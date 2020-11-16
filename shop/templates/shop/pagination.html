@@ -1,0 +1,20 @@
+<!-- Pagination -->
+{% if page_obj.has_other_pages %}
+<div class="pagination mt-5">
+  <span class="step-links mx-auto">
+    <span class="current mr-3">
+      Page {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_previous %}
+    <a class="btn btn-harien" href="?page=1">&laquo; first</a>
+    <a class="btn btn-harien" href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+    <a class="btn btn-harien" href="?page={{ page_obj.next_page_number }}">next</a>
+    <a class="btn btn-harien" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %}

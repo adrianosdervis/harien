@@ -1,0 +1,48 @@
+{% load static %}
+{% load cart_template_tags %}
+
+<header class="header">
+  <div class="top-bar">
+    <figure class="d-flex justify-content-center m-0">
+      <a href="{% url 'home' %}">
+        <img class="img-fluid d-block" src="{% static 'images/logo.jpg' %}" alt="logo" data-aos="zoom-in">
+      </a>
+    </figure>
+    <div class="topbar-user">
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'profile' %}"><i class="fas fa-user mr-1"></i>Welcome {{request.user.username}}!</a>
+      <a href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt mr-1"></i>Logout</a>
+      {% else %}
+      <a href="{% url 'account_signup' %}"><i class="fas fa-user-plus mr-1"></i>Register</a>
+      <a href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt mr-1"></i>Login</a>
+      {% endif %}
+      <a href="{% url 'cart' %}" class="site-cart">
+        <span><i class="fas fa-shopping-basket"></i></span>
+        <span class="count">{{ request|cart_item_count }}</span>
+      </a>
+    </div>
+  </div>
+
+  <nav class="border-top border-bottom">
+    <ul class="nav-list m-0">
+      <li data-aos="zoom-in"><a href="{% url 'home' %}">Home</a></li>
+      {% comment %} <li data-aos="zoom-in"><a href="/">About</a></li> {% endcomment %}
+      <li data-aos="zoom-in"><a href="{% url 'contact' %}">Contact</a></li>
+      {% if request.user.is_staff %}
+      <li data-aos="zoom-in"><a href="{% url 'staff' %}">Staff</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  {% if messages %}
+  {% for message in messages %}
+  <div id="message" class="alert alert-{{message.tags}} alert-dismissible text-center">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+</header>

@@ -1,0 +1,32 @@
+#header {
+  height: 60px;
+  background-color:#7971ea;
+  color: white;
+}
+
+#branding h1 {
+  color: white;
+}
+
+div.breadcrumbs,
+.module caption {
+  background-color: #7971ea;
+}
+
+.submit-row input,
+input[type=submit].default {
+  background:  #7971ea;
+  position: relative;
+  -webkit-transition: 0.2s all ease-in-out !important;
+  -o-transition: 0.2s all ease-in-out !important;
+  transition: 0.2s all ease-in-out !important;
+  top: 0;
+}
+
+.submit-row input:hover,
+input[type=submit].default:hover {
+  background:  #7971ea;
+  -webkit-box-shadow: 0 5px 10px -7px rgba(0, 0, 0, 0.9) !important;
+  box-shadow: 0 5px 10px -7px rgba(0, 0, 0, 0.9) !important;
+  top: -1px;
+}

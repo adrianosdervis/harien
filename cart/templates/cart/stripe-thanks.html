@@ -1,0 +1,60 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block metadescription %}
+Welcome to Harien eshop
+{% endblock metadescription %}
+
+{% block metakeywords %}
+{% endblock metakeywords %}
+
+{% block head_title %}
+Harien Shop | Thank You
+{% endblock head_title %}
+
+{% block content %}
+
+<style>
+  .thanks-icon {
+    color: #7971ea;
+    font-size: 12rem;
+    animation-name: icon;
+    animation-iteration-count: infinite;
+    animation-duration: 1000ms;
+  }
+
+  @keyframes icon {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.05);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+</style>
+
+<div class="container mt-4" style="padding-bottom: 150px;">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <i class="fas fa-heart my-5 thanks-icon"></i>
+      <h2>Thank you for your order!</h2>
+      <h4>Order: {{order}}</h4>
+      <p>We are on our way to arrange your order.</p>
+      <p>If you have any question or request please feel free to contact us through the contact form of the website
+        mentioning the above order number.</p>
+      <p>In the meantime you can find your order details by clicking the <span style="color: blue;"><i
+             class="fas fa-user"></i>
+          {{request.user.username}}</span> icon at the top
+        bar.</p>
+      <a href="{% url 'home' %}" class="btn btn-harien">Back to home</a>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

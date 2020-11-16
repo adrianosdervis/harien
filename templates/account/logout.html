@@ -1,0 +1,37 @@
+{% extends "shop/base.html" %}
+
+{% load i18n %}
+
+{% block metadescription %}
+Welcome to Harien eshop
+{% endblock metadescription %}
+
+{% block metakeywords %}
+{% endblock metakeywords %}
+
+{% block head_title %}
+Harien Shop | Logout
+{% endblock head_title %}
+
+{% block content %}
+<div class="site-section" style="padding-bottom: 150px;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <h2 class="h3 mb-3 text-black">Logout</h2>
+      </div>
+      <div class="col-md-7">
+        <p>{% trans 'Are you sure you want to logout?' %}</p>
+        <form method="post" action="{% url 'account_logout' %}">
+          {% csrf_token %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="btn btn-harien btn-lg btn-block" type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

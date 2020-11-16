@@ -1,0 +1,73 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block metadescription %}
+{{ product.description|truncatewords:150 }}
+{% endblock metadescription %}
+
+{% block metakeywords %}
+{% endblock metakeywords %}
+
+{% block head_title %}
+Harien Shop | {{ product.name }}
+{% endblock head_title %}
+
+
+{% block content %}
+
+<main>
+
+  <div class="container mt-5" style="padding-bottom: 10rem;">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="single-product mb-5">
+          <a href="{{ product.main_image.url }}" data-lightbox="product-image">
+            <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="img-fluid rounded">
+          </a>
+          <div class="row mt-2">
+            {% if product.image1 %}
+            <div class="col-4">
+              <a href="{{ product.image1.url }}" data-lightbox="product-image">
+                <img src="{{ product.image1.url }}" alt="{{ product.name }}" class="img-fluid rounded">
+              </a>
+            </div>
+            {% endif %}
+            {% if product.image2 %}
+            <div class="col-4">
+              <a href="{{ product.image2.url }}" data-lightbox="product-image">
+                <img src="{{ product.image2.url }}" alt="{{ product.name }}" class="img-fluid rounded">
+              </a>
+            </div>
+            {% endif %}
+            {% if product.image3 %}
+            <div class="col-4">
+              <a href="{{ product.image3.url }}" data-lightbox="product-image">
+                <img src="{{ product.image3.url }}" alt="{{ product.name }}" class="img-fluid rounded">
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h3 class="h3"><strong>{{ product.name }}</strong></h3>
+        <p class="m-0 mt-sm-3">{{ product.description }}</p>
+        <h2><span style="letter-spacing: 2px;" class="badge badge-primary p-3 mt-4">{{ product.price }}€</span></h2>
+        <div class="row">
+          <div class="col-md-12 col-lg-8">
+            <form method="POST" class="mt-4">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <button type="submit" class="btn btn-harien btn-block"><i class="fas fa-cart-plus"></i> Add to
+                Cart</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block metadescription %}
+Welcome to Harien eshop
+{% endblock metadescription %}
+
+{% block metakeywords %}
+{% endblock metakeywords %}
+
+{% block head_title %}
+Harien Shop | Products
+{% endblock head_title %}
+
+{% block content %}
+<div class="site-section" style="padding-bottom: 10rem;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <h2 class="text-black">Staff Admin - Products</h2>
+        <a href="{% url 'product-create' %}" class="btn btn-harien btn-sm mb-3">Create a product</a>
+        <div class="card">
+          <div class="card-body">
+            <div class="site-blocks-table">
+              <div class="table-responsive">
+                <table class="table mb-0">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th colspan="2">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for product in products %}
+                    <tr>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.price }}€</td>
+                      <td colspan="2">
+                        <a href="{{ product.get_update_url }}" class="btn btn-harien btn-sm">Update</a>
+                        <a href='{{ product.get_delete_url }}' class="btn btn-harien btn-sm">X</a>
+                      </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                      <td colspan="3">You don't have any products</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'shop/pagination.html' %}
+
+  </div>
+</div>
+{% endblock content %}
