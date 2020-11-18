@@ -9,6 +9,7 @@ def get_or_set_order_session(request):
         order = Order()
         order.ordered_date = timezone.now()
         order.save()
+        print(order)
         request.session['order_id'] = order.id
     else:
         try:
@@ -17,11 +18,13 @@ def get_or_set_order_session(request):
             order = Order()
             order.ordered_date = timezone.now()
             order.save()
+            print(order)
             request.session['order_id'] = order.id
 
     if request.user.is_authenticated and order.user is None:
         order.user = request.user
         order.ordered_date = timezone.now()
         order.save()
+        print(order)
 
     return order
