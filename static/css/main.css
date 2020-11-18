@@ -56,13 +56,22 @@ body {
   padding: 1.5rem;
 }
 
-.category-menu a {
+.category-menu > * {
   color: rgb(33, 37, 41);
   text-decoration: none;
 }
-.category-menu a:not(:last-child) {
-  margin-right: 50px;
+
+.category-menu > * + * {
+  margin-left: 30px;
 }
+
+/* .category-menu a {
+  color: rgb(33, 37, 41);
+  text-decoration: none;
+} */
+/* .category-menu a:not(:last-child) {
+  margin-right: 50px;
+} */
 /* --------------------------- */
 .category-image,
 .all-categories {
